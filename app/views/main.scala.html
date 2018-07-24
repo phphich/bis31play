@@ -1,0 +1,38 @@
+@(content:Html)
+
+<hmtl>
+    <head>
+        <link rel="stylesheet" href="/assets/stylesheets/bootstrap3/css/bootstrap.css">
+        <script src="/assets/javascripts/jquery-3.3.1.min.js"></script>
+        <script src="/assets/stylesheets/bootstrap3/js/bootstrap.js"></script>
+        <title>BIS Coff. 2020 Web Site</title>
+    </head>
+    <body bgcolor="#fff8dc" text="#8a2be2" link="blue" alink="red" vlink="gray">
+
+        <div class="container-fluid">
+             <div class="row" >
+                <div class="col-sm-12">
+                    @header()
+                </div>
+            </div>
+            <br><BR>
+            <div class="row" >
+                <div class="col-sm-2">
+                    @menu() <br><br><br>
+                </div>
+                <div class="col-sm-10">
+                    @content
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12" style="background-color: gray">
+                    @footer()
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+
+</hmtl>

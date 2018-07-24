@@ -1,0 +1,33 @@
+@(r1:Room,r2:Room)
+
+<h1>ตัวอย่างการแสดง Object ห้องประชุม </h1>
+
+<div class="row">
+    <div class="col-md-2" > </div>
+
+    <div class="col-md-8">
+        <br>
+        <div class="panel panel-primary">
+            <div class="panel-heading"> ห้อง @r1.getName() </div>
+            <div class="panel-body">
+                รหัสห้อง : @r1.getId() <br>
+                ชื่อห้อง : @r1.getName() <br>
+                จำนวนความจุ : @r1.getAmount() <br> 
+            </div>
+        </div>
+        
+        <br><br>
+        <div class="panel panel-success">
+            <div class="panel-heading"> ห้อง @r2.getName() </div>
+            <div class="panel-body">
+                รหัสห้อง : @r2.getId() <br>
+                ชื่อห้อง : @r2.getName() <br>
+                จำนวนความจุ : @r2.getAmount() <br>
+            </div>
+        </div>
+    </div>
+</div>
+    
+        
+        
+        

@@ -1,0 +1,14 @@
+<br><BR>
+@if(flash.containsKey("error")) {
+    <div class="alert alert-danger">
+        <strong>Error!</strong> @flash.get("error").
+    </div>
+}
+<form action="/postData" method="POST" enctype ="multipart/form-data">
+    รหัสประจำตัว : <input type="text" name="id" size="50" required> <br>
+    ชื่อ สกุล : <input type="text" name="name" size="50" required> <br>
+    สีที่ชอบ : <input type="color" name="color"> <br>
+    เลือกรูปภาพ : <input type="file" name="profile"> <br>
+    <input type="submit" value="Save">
+    <input type="reset" value="Cancel">
+</form>
