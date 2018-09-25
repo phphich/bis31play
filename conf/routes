@@ -14,6 +14,32 @@ POST     /postData                   controllers.Application.postData()
 GET     /inputRoom                   controllers.Application.inputRoom()
 POST    /postRoom                    controllers.Application.postRoom()
 
+GET     /inputRoomHelper            controllers.Application.inputRoomHelper()
+POST    /postRoomHelper             controllers.Application.postRoomHelper()
+GET     /showRoomHelper             controllers.Application.showRoomHelper()
+GET     /showOneRoom/:id            controllers.Application.showOneRoom(id : String)
+
+GET     /sampleBook                 controllers.Application.sampleBook()
+
+
+GET     /showBookList               controllers.Application.showBookList()
+GET     /bookAdd                    controllers.Application.bookAdd()
+POST    /bookSave                   controllers.Application.bookSave()
+
+GET     /bookEdit/:id               controllers.Application.bookEdit(id:String)
+POST    /bookUpdate                 controllers.Application.bookUpdate()
+
+GET     /bookDelete/:id             controllers.Application.bookDelete(id:String)
+
+GET     /showNoteBookList               controllers.Application.showNoteBookList()
+GET     /noteBookAdd                    controllers.Application.noteBookAdd()
+POST    /noteBookSave                   controllers.Application.noteBookSave()
+
+GET     /noteBookEdit/:id               controllers.Application.noteBookEdit(id:String)
+POST    /noteBookUpdate                 controllers.Application.noteBookUpdate()
+
+GET     /noteBookDelete/:id             controllers.Application.noteBookDelete(id:String)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

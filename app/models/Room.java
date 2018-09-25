@@ -4,7 +4,8 @@ package models;
  * Created by COM2-00-PC on 7/10/2018.
  */
 public class Room {
-    private String id, name;
+    protected String id;
+    private String name;
     private int amount;
 
     public Room() {

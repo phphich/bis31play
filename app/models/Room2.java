@@ -1,42 +1,25 @@
 package models;
 
+import javax.validation.OverridesAttribute;
+import java.util.Random;
+
 /**
  * Created by COM2-00-PC on 7/10/2018.
  */
-public class Room2 {
-    private String id, name;
-    private int amount;
-
+public class Room2 extends Room {
     public Room2() {
+        setId();
+    }
+    public Room2(String name, int amount) {
+        super(null, name, amount);
+        setId();
     }
 
-    public Room2(String id, String name, int amount) {
-        this.id = id;
-        this.name = name;
-        this.amount = amount;
-    }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
+    protected void setId() {
+        int random;
+        Random ran = new Random();
+        random = ran.nextInt(100000)+1;
+        super.id = Integer.toString(random);
     }
 }

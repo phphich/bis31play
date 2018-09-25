@@ -1,0 +1,45 @@
+@(noteBookList:List[NoteBook])
+<br>
+<h1> Note Book Information </h1>
+<table class="table table-stripe">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Pages</th>
+        <th>Price</th>
+        <th>Publishter</th>
+            
+        <th><a href="/noteBookAdd" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus-sign" style="width: 50px"></span>
+        </a></th>
+    </tr>
+    @for(noteBook <- noteBookList){
+        <tr>
+            <td>@noteBook.getId </td>
+            <td>@noteBook.getTitle </td>
+            <td>@noteBook.getAuthor </td>
+            <td>@noteBook.getPages </td>
+            <td>@noteBook.getPrice </td>
+            <td>@noteBook.getPublisher.getName </td>
+
+            <td>
+                <a href="/noteBookEdit/@noteBook.getId">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+                <a href="/noteBookDelete/@noteBook.getId" onclick="return confirm('โปรดยืนยันการลบหนังสือที่เลือก')">
+
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            </td>
+        </tr>
+    }
+<tr>
+    <td colspan="5">
+
+        <a href="/" class="btn btn-danger">Home</a>
+    </td>
+</tr>
+</table>
+
+
