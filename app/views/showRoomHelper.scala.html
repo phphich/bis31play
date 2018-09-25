@@ -1,0 +1,31 @@
+@(roomList:List[Room2])
+
+<h1>ตัวอย่างการแสดง List ห้องประชุม </h1>
+
+
+<table class="table table-stripe">
+    <tr>
+        <th>รหัสห้อง</th>
+        <th>ชื่อห้อง</th>
+        <th>ความจุ</th>
+    </tr>
+
+    @for(r<-roomList){
+        <tr>
+            <td>
+                <a href="/showOneRoom/@r.getId()">@r.getId()</a>
+
+                <a class="btn btn-info" data-toggle="modal" data-target="#@r.getId">@r.getId</a>
+                @modalview(r)
+            </td>
+            <td>@r.getName() </td>
+            <td>@r.getAmount() </td>
+        </tr>
+    }
+</table>
+
+<a href="/inputRoomHelper" class="btn btn-success">ป้อนข้อมูลห้องเพิ่ม</a>
+
+
+        
+        

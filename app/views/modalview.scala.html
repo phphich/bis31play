@@ -1,0 +1,24 @@
+@(r:Room2)
+<!-- Modal -->
+<div id="@r.getId" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+            <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: blue;color: white">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@r.getId</h4>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: large;font-style: oblique;color: red">รหัสห้อง : @r.getId <br>
+                    ชื่อห้อง :   @r.getName <br>
+                    ความจุ :   @r.getAmount คน <br>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

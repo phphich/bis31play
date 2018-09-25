@@ -1,0 +1,14 @@
+@(myForm:Form[Room2])
+@import helper._;
+
+<BR><BR>
+<h1> Helper Form รับข้อมูลห้อง </h1>
+@helper.form(action=routes.Application.postRoomHelper(), 'class->"from-control" , 'enctype->"multipart/form-data"){
+    @inputText(myForm("name"), '_label ->"ชื่อห้อง", 'size->"50", 'maxlength->"40", 'required->"requied")
+    @inputText(myForm("amount"), '_label->"จำนวนความจุ", 'size->"5", 'required->"requied",
+        'pattern->"[1-9]{1}[0-9]{0,3}", 'title->"กรุณาป้อนตัวเลขไม่เกิน 4 หลัก" )
+    <input type="submit" value="บันทึก" class="btn btn-success">
+    <input type="reset" value="เคลียร์" class="btn btn-danger">
+}
+
+

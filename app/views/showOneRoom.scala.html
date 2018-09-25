@@ -1,0 +1,24 @@
+@(r1:Room2)
+
+<h1>ตัวอย่างการแสดงห้องที่เลือก </h1>
+
+<div class="row">
+    <div class="col-md-2" > </div>
+
+    <div class="col-md-8">
+        <br>
+        <div class="panel panel-primary">
+            <div class="panel-heading"> ห้อง @r1.getName() </div>
+            <div class="panel-body">
+                รหัสห้อง : @r1.getId() <br>
+                ชื่อห้อง : @r1.getName() <br>
+                จำนวนความจุ : @r1.getAmount() <br> 
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2" > </div>
+</div>
+    
+        
+        
+        

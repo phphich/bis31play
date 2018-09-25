@@ -1,0 +1,41 @@
+@(bookList:List[Book])
+<br>
+<h1> Book Information </h1>
+<table class="table table-stripe">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Pages</th>
+        <th>Price</th>
+        <th><a href="/bookAdd" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus-sign" style="width: 50px"></span>
+        </a></th>
+    </tr>
+    @for(book <- bookList){
+        <tr>
+            <td>@book.getId </td>
+            <td>@book.getTitle </td>
+            <td>@book.getAuthor </td>
+            <td>@book.getPages </td>
+            <td>@book.getPrice </td>
+            <td>
+                <a href="/bookEdit/@book.getId">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+                <a href="/bookDelete/@book.getId" onclick="return confirm('โปรดยืนยันการลบหนังสือที่เลือก')">
+
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            </td>
+        </tr>
+    }
+<tr>
+    <td colspan="5">
+
+        <a href="/" class="btn btn-danger">Home</a>
+    </td>
+</tr>
+</table>
+
+
