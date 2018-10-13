@@ -2,10 +2,8 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +17,12 @@ public class Book  extends  Model{
     private  String title, author;
     private int  pages;
     private double price;
+
+    @OneToMany(mappedBy = "book")
+    private List<OrdersDetail> ordersDetailList=new ArrayList<OrdersDetail>();
+    public List<OrdersDetail> getOrdersDetailList() {
+        return ordersDetailList;
+    }
 
     public Book() {
     }

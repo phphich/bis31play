@@ -2,16 +2,28 @@
     <br>
             <div class="list-group" >
                 <a href="/" class="list-group-item active">Home</a>
-                <a href="/second" class="list-group-item">You page</a>
-                <a href="/showRoom" class="list-group-item">Show room</a>
 
-                <a href="/getData" class="list-group-item">Regis</a>
-                <a href="/inputRoom" class="list-group-item">Input Room</a>
-                <a href="/showRoomHelper" class="list-group-item">Show room</a>
-                <hr>
-                <a href="/showBookList" class="list-group-item">Show Books</a>
-                <a href="/showNoteBookList" class="list-group-item">Show NoteBook </a>
-                <a href="#" class="list-group-item">Promotions</a>
+                @if(session.get("ustatus")=="Customer") {
+                     <a href="/showBookSale" class="list-group-item">
+                         <b style="color: red">Book for sale</b>
+                     </a>
+                }
+
+                @if(session.get("ustatus")=="Admin" || session.get("ustatus")=="Employee"|| session.get("ustatus")=="Customer") {
+                    <a href="/second" class="list-group-item">You page</a>
+                    <a href="/showRoom" class="list-group-item">Show room</a>
+                    <a href="/getData" class="list-group-item">Regis</a>
+                }
+                @if(session.get("ustatus")=="Admin" || session.get("ustatus")=="Employee") {
+                    <a href="/inputRoom" class="list-group-item">Input Room</a>
+                    <a href="/showRoomHelper" class="list-group-item">Show room</a>
+                    <hr>
+                }
+                @if(session.get("ustatus")=="Admin") {
+                    <a href="/showBookList" class="list-group-item">Show Books</a>
+                    <a href="/showNoteBookList" class="list-group-item">Show NoteBook </a>
+                    <a href="#" class="list-group-item">Promotions</a>
+                }
             </div>
     <br><br><br><br><br><br><br><br><br>
 </div>

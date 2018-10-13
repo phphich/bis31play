@@ -1,8 +1,9 @@
 package controllers;
 
 import models.*;
-import net.sf.ehcache.search.expression.Not;
+
 import play.api.templates.Html;
+import play.cache.Cache;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.*;
@@ -13,6 +14,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -211,17 +213,41 @@ public class Application extends Controller {
     }
 
     public static Result showNoteBookList() {
+        if(session().get("ustatus") ==null) {
+            flash("errPermission", "ท่านต้องลงชื่อเข้าใช้ก่อน");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }else if(!session().get("ustatus").equals("Admin")){
+            flash("errPermission", "ท่านไม่มีสิทธิ์ใช้ในส่วนนี้");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }
+
         noteBookList = NoteBook.list();
         return showMain(showNoteBookList.render(noteBookList));
     }
 
     public static Result noteBookAdd() {
+        if(session().get("ustatus") ==null) {
+            flash("errPermission", "ท่านต้องลงชื่อเข้าใช้ก่อน");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }else if(!session().get("ustatus").equals("Admin")){
+            flash("errPermission", "ท่านไม่มีสิทธิ์ใช้ในส่วนนี้");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }
+
         publisherList=Publisher.list();
         noteBookForm=Form.form(NoteBook.class);
         return showMain(noteBookAdd.render(noteBookForm,publisherList));
     }
 
     public static Result noteBookSave() {
+        if(session().get("ustatus") ==null) {
+            flash("errPermission", "ท่านต้องลงชื่อเข้าใช้ก่อน");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }else if(!session().get("ustatus").equals("Admin")){
+            flash("errPermission", "ท่านไม่มีสิทธิ์ใช้ในส่วนนี้");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }
+
         publisherList=Publisher.list();
         Form<NoteBook> newBook = noteBookForm.bindFromRequest();
         if(newBook.hasErrors()){
@@ -238,20 +264,167 @@ public class Application extends Controller {
                 return showNoteBookList();
             }
         }
-        
-         
     }
 
     public static Result noteBookEdit(String id) {
-        return ok();
+        if(session().get("ustatus") ==null) {
+            flash("errPermission", "ท่านต้องลงชื่อเข้าใช้ก่อน");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }else if(!session().get("ustatus").equals("Admin")){
+            flash("errPermission", "ท่านไม่มีสิทธิ์ใช้ในส่วนนี้");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }
+
+        publisherList=Publisher.list();
+       noteBook=NoteBook.finder.byId(id);
+       if(noteBook!=null){
+           noteBookForm = Form.form(NoteBook.class).fill(noteBook);
+           return showMain(noteBookEdit.render(noteBookForm, publisherList));
+       }else{
+           return showNoteBookList();
+       }
     }
     public static Result noteBookUpdate() {
-        return ok();
+        if(session().get("ustatus") ==null) {
+            flash("errPermission", "ท่านต้องลงชื่อเข้าใช้ก่อน");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }else if(!session().get("ustatus").equals("Admin")){
+            flash("errPermission", "ท่านไม่มีสิทธิ์ใช้ในส่วนนี้");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }
+
+        publisherList=Publisher.list();
+        Form<NoteBook> newBook = noteBookForm.bindFromRequest();
+        if(newBook.hasErrors()){
+            flash("msgError", "ป้อนข้อมูลไม่สมบูรณ์/ไม่ถูกต้อง กรุณาตรวจสอบและแก้ไขใหม่");
+            return showMain(noteBookEdit.render(newBook, publisherList));
+        }else{
+            noteBook = newBook.get();
+            NoteBook.update(noteBook);
+            return showNoteBookList();
+        }
     }
 
     public static Result noteBookDelete(String id){
-        return ok();
+        if(session().get("ustatus") ==null) {
+            flash("errPermission", "ท่านต้องลงชื่อเข้าใช้ก่อน");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }else if(!session().get("ustatus").equals("Admin")){
+            flash("errPermission", "ท่านไม่มีสิทธิ์ใช้ในส่วนนี้");
+            return showMain(home.render("Phich", "Phiphitphatphaisit"));
+        }
+
+        noteBook=NoteBook.finder.byId(id);
+        if(noteBook!=null){
+            NoteBook.delete(noteBook);
+        }
+        return showNoteBookList();
     }
+
+    public static Result authen(){
+        DynamicForm myForm = Form.form().bindFromRequest();
+        String uid = myForm.get("uid");
+        String upass = myForm.get("upass");
+        User user = User.authen(uid,upass);
+        if(user==null){
+            flash("errLogin", "Invalid id or password");
+        }else{
+            session("uid", user.getId());
+            session("uname", user.getName());
+            session("ustatus", user.getStatus());
+        }
+        return showMain(home.render("Phich", "Phiphitphatphaisit"));
+    }
+
+    public static Result logout() {
+        session().clear();
+        return showMain(home.render("Phich", "Phiphitphatphaisit"));
+    }
+
+    public List<OrdersDetail> basketList = new ArrayList<OrdersDetail>();
+
+    public static Result showBookSale() {
+        bookList=Book.list();
+        List<Basket> basketList = (List<Basket>) Cache.get("basketList");
+
+        return showMain(showBookSale.render(bookList, basketList));
+    }
+
+    public static Result addOrder(String id ){
+        List<Basket> basketList=new ArrayList<Basket>();
+        boolean found=false;
+
+        if(Cache.get("basketList") != null){
+            basketList.addAll((List<Basket>) Cache.get("basketList"));
+            for(int i=0;i<basketList.size();i++) {
+                if(basketList.get(i).getBook().getId().equals(id)) {
+                    int amount =  basketList.get(i).getAmount();
+                    basketList.get(i).setAmount(amount + 1);
+                    found=true;
+                    break;
+                }
+            }
+        }
+
+        if(found==false) {
+            book = Book.finder.byId(id);
+            basketList.add(new Basket(book,1));
+        }
+
+        Cache.set("basketList", basketList);
+        return redirect("/showBookSale");
+    }
+
+    public static Result removeItem(String id){
+        List<Basket> basketList=new ArrayList<Basket>();
+
+        if(Cache.get("basketList") != null){
+            basketList.addAll((List<Basket>) Cache.get("basketList"));
+            for(int i=0;i<basketList.size();i++) {
+                if(basketList.get(i).getBook().getId().equals(id)) {
+                    basketList.remove(i);
+                    break;
+                }
+            }
+        }
+
+        Cache.set("basketList", basketList);
+        return redirect("/showBookSale");
+    }
+
+    public static Result checkBill(){
+        List<Basket> basketList=new ArrayList<Basket>();
+        if(Cache.get("basketList") != null) {
+            basketList =(List<Basket>) Cache.get("basketList");
+        }
+        return showMain(checkBill.render(basketList));
+    }
+
+    public static Result saveBill(){
+        List<Basket> basketList=new ArrayList<Basket>();
+
+        if(Cache.get("basketList") != null) {
+            Bill bill=new Bill();
+            User user = User.finder.byId(session().get("uid"));
+            bill.setDate(new Date());
+            bill.setUser(user);
+            bill.create(bill);
+
+            basketList=(List<Basket>) Cache.get("basketList");
+            for(int i=0; i<basketList.size();i++) {
+                BillDetail billDetail = new BillDetail();
+                billDetail.setBill(bill);
+                billDetail.setBook(basketList.get(i).getBook());
+                billDetail.setAmount(basketList.get(i).getAmount());
+                BillDetail.create(billDetail);
+
+            }
+        }
+        Cache.remove("basketList");
+        return redirect("/showBookSale");
+
+    }
+
 
 
 

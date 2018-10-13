@@ -2,14 +2,14 @@
 @import helper._;
 
 <BR><BR>
-<h1> Add New Note Book </h1>
+<h1> Update Note Book </h1>
 @if(flash.containsKey("msgError")){
     <div class="alert alert-danger" style="width: 500px">
         <strong>ผิดพลาด!</strong> @flash.get("msgError").
     </div>
 }
 
-@helper.form(action=routes.Application.noteBookSave(), 'class->"from-control"){
+@helper.form(action=routes.Application.noteBookUpdate(), 'class->"from-control"){
     @inputText(myForm("id"), '_label ->"รหัสหนังสือ", 'size->"5", 'maxlength->"5", 'required->"requied")
     @inputText(myForm("title"), '_label ->"ชื่อเรื่อง", 'size->"50", 'maxlength->"50", 'required->"requied")
     @inputText(myForm("author"), '_label ->"ชื่อผู้แต่ง", 'size->"50", 'maxlength->"50", 'required->"requied")

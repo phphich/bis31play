@@ -6,6 +6,10 @@
         <link rel="stylesheet" href="/assets/stylesheets/bootstrap3/css/bootstrap.css">
     </head>
     <body bgcolor="#faebd7" text="red">
+        <br><br>
+        @if(flash.containsKey("errPermission")){
+            <b style="color: red;"> @flash.get("errPermission") </b>
+        }
         <h1>Welcome to my Play web</h1>
         Sabaidee. Hi <button class="btn btn-success btn-lg">@strName @surName </button>  <br>
 

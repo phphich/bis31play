@@ -40,6 +40,14 @@ POST    /noteBookUpdate                 controllers.Application.noteBookUpdate()
 
 GET     /noteBookDelete/:id             controllers.Application.noteBookDelete(id:String)
 
+POST   /authen                          controllers.Application.authen()
+GET     /logout                         controllers.Application.logout()
+
+GET     /showBookSale                   controllers.Application.showBookSale()
+GET     /addOrder/:id                   controllers.Application.addOrder(id:String)
+GET     /removeItem/:id                 controllers.Application.removeItem(id:String)
+GET     /checkBill                      controllers.Application.checkBill()
+GET     /saveBill                       controllers.Application.saveBill()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

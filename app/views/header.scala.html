@@ -25,6 +25,27 @@
                         </li>
                     </ul>
                 </div>
+                <div>
+                <ul class="nav navbar-nav navbar-right">
+                    @if(session.get("uid") == null){
+                        <form action="/authen" method="POST">
+                                <input type="text" name="uid" size="10" placeholder="Enter your id">
+                                <input type="password" name="upass" size="10" placeholder="Enter your password">
+                                <input type="submit" value="Login">
+                        </form>
+                        @if(flash.containsKey("errLogin")){
+                            <b style="color: red">@flash.get("errLogin") </b>
+                        }
+                        <a href="/singup"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    }else{
+                        <b style="color: yellow">
+                            Logged by: @session.get("uid") @session.get("uname"), Status: @session.get("ustatus")
+                        </b>
+                        <a href="/logout"><span class="glyphicon glyphicon-user"></span> Log Out</a>
+                    }
+
+                </ul>
+                </div>
             </nav>
         </div>
     </div>
