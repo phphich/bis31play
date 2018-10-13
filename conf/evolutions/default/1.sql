@@ -3,20 +3,6 @@
 
 # --- !Ups
 
-create table tbBill (
-  id                        varchar(255) not null,
-  date                      datetime,
-  user_id                   varchar(255),
-  status                    varchar(255),
-  constraint pk_tbBill primary key (id))
-;
-
-create table tbBillDetail (
-  bill_id                   varchar(255),
-  book_id                   varchar(255),
-  amount                    integer)
-;
-
 create table tbBook (
   id                        varchar(255) not null,
   title                     varchar(255),
@@ -47,6 +33,7 @@ create table tbNoteBook (
 create table tbOrders (
   id                        varchar(255) not null,
   date                      datetime,
+  user_id                   varchar(255),
   status                    varchar(255),
   constraint pk_tbOrders primary key (id))
 ;
@@ -74,28 +61,20 @@ create table tbUser (
   constraint pk_tbUser primary key (id))
 ;
 
-alter table tbBill add constraint fk_tbBill_user_1 foreign key (user_id) references tbUser (id) on delete restrict on update restrict;
-create index ix_tbBill_user_1 on tbBill (user_id);
-alter table tbBillDetail add constraint fk_tbBillDetail_bill_2 foreign key (bill_id) references tbBill (id) on delete restrict on update restrict;
-create index ix_tbBillDetail_bill_2 on tbBillDetail (bill_id);
-alter table tbBillDetail add constraint fk_tbBillDetail_book_3 foreign key (book_id) references tbBook (id) on delete restrict on update restrict;
-create index ix_tbBillDetail_book_3 on tbBillDetail (book_id);
-alter table tbNoteBook add constraint fk_tbNoteBook_publisher_4 foreign key (publisher_id) references tbPublisher (id) on delete restrict on update restrict;
-create index ix_tbNoteBook_publisher_4 on tbNoteBook (publisher_id);
-alter table tbOrdersDetail add constraint fk_tbOrdersDetail_orders_5 foreign key (orders_id) references tbOrders (id) on delete restrict on update restrict;
-create index ix_tbOrdersDetail_orders_5 on tbOrdersDetail (orders_id);
-alter table tbOrdersDetail add constraint fk_tbOrdersDetail_book_6 foreign key (book_id) references tbBook (id) on delete restrict on update restrict;
-create index ix_tbOrdersDetail_book_6 on tbOrdersDetail (book_id);
+alter table tbNoteBook add constraint fk_tbNoteBook_publisher_1 foreign key (publisher_id) references tbPublisher (id) on delete restrict on update restrict;
+create index ix_tbNoteBook_publisher_1 on tbNoteBook (publisher_id);
+alter table tbOrders add constraint fk_tbOrders_user_2 foreign key (user_id) references tbUser (id) on delete restrict on update restrict;
+create index ix_tbOrders_user_2 on tbOrders (user_id);
+alter table tbOrdersDetail add constraint fk_tbOrdersDetail_orders_3 foreign key (orders_id) references tbOrders (id) on delete restrict on update restrict;
+create index ix_tbOrdersDetail_orders_3 on tbOrdersDetail (orders_id);
+alter table tbOrdersDetail add constraint fk_tbOrdersDetail_book_4 foreign key (book_id) references tbBook (id) on delete restrict on update restrict;
+create index ix_tbOrdersDetail_book_4 on tbOrdersDetail (book_id);
 
 
 
 # --- !Downs
 
 SET FOREIGN_KEY_CHECKS=0;
-
-drop table tbBill;
-
-drop table tbBillDetail;
 
 drop table tbBook;
 

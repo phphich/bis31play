@@ -404,19 +404,20 @@ public class Application extends Controller {
         List<Basket> basketList=new ArrayList<Basket>();
 
         if(Cache.get("basketList") != null) {
-            Bill bill=new Bill();
+            Orders orders=new Orders();
             User user = User.finder.byId(session().get("uid"));
-            bill.setDate(new Date());
-            bill.setUser(user);
-            bill.create(bill);
+            orders.setDate(new Date());
+            orders.setUser(user);
+            orders.setStatus("order");
+            orders.create(orders);
 
             basketList=(List<Basket>) Cache.get("basketList");
             for(int i=0; i<basketList.size();i++) {
-                BillDetail billDetail = new BillDetail();
-                billDetail.setBill(bill);
-                billDetail.setBook(basketList.get(i).getBook());
-                billDetail.setAmount(basketList.get(i).getAmount());
-                BillDetail.create(billDetail);
+                OrdersDetail ordersDetail = new OrdersDetail();
+                ordersDetail.setOrders(orders);
+                ordersDetail.setBook(basketList.get(i).getBook());
+                ordersDetail.setAmount(basketList.get(i).getAmount());
+                OrdersDetail.create(ordersDetail);
 
             }
         }

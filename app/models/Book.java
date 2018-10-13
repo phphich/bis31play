@@ -94,5 +94,5 @@ public class Book  extends  Model{
         return finder.all();
     }
 
-
 }
+

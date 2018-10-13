@@ -20,8 +20,8 @@ public class User extends Model {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Bill> billList = new ArrayList<Bill>();
-    public List<Bill> getBillList() {
+    private List<Orders> billList = new ArrayList<Orders>();
+    public List<Orders> getBillList() {
         return billList;
     }
 

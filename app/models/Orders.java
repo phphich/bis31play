@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by COM2-00-PC on 10/13/2018.
@@ -17,6 +18,7 @@ public class Orders extends Model {
     @Id
     private String id;
     private Date date;
+    @ManyToOne
     private User user;
     private String status;
 
@@ -27,10 +29,11 @@ public class Orders extends Model {
     }
 
     public Orders() {
+        setId();
     }
 
-    public Orders(String id, Date date, User user, String status) {
-        this.id = id;
+    public Orders(Date date, User user, String status) {
+        setId();
         this.date = date;
         this.user = user;
         this.status = status;
@@ -40,8 +43,11 @@ public class Orders extends Model {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId() {
+        int n;
+        Random random = new Random();
+        n = random.nextInt(100000)+1;
+        id = "bl-" + Integer.toString(n);
     }
 
     public Date getDate() {

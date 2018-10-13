@@ -4,6 +4,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by COM2-00-PC on 10/13/2018.
@@ -20,10 +21,11 @@ public class OrdersDetail extends Model {
     private int amount;
 
     public OrdersDetail() {
+        setId();
     }
 
-    public OrdersDetail(String id, Orders orders, Book book, int amount) {
-        this.id = id;
+    public OrdersDetail(Orders orders, Book book, int amount) {
+        setId();
         this.orders = orders;
         this.book = book;
         this.amount = amount;
@@ -33,8 +35,11 @@ public class OrdersDetail extends Model {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId() {
+        int n;
+        Random random = new Random();
+        n = random.nextInt(100000)+1;
+        id = "bl-" + Integer.toString(n);
     }
 
     public Orders getOrders() {
